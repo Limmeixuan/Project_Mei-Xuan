@@ -6,6 +6,9 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the dataset
 df = pd.read_csv('C:/Users/cvs59/Downloads/FYP/heart (1).csv')
@@ -47,6 +50,17 @@ accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
+
+# Confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred) 
+
+# Plot confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, cmap='Oranges', fmt='g')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix for Logistic Regression Model')
+plt.show()
 
 # Print the evaluation metrics
 print("Accuracy:", accuracy)

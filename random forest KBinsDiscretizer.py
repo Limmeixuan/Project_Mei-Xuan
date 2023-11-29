@@ -5,6 +5,9 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, KBinsDiscretizer
 from sklearn.compose import ColumnTransformer
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the dataset
 df = pd.read_csv('C:/Users/cvs59/Downloads/FYP/heart (1).csv')
@@ -44,6 +47,17 @@ model.fit(X_train, y_train)
 
 # Make predictions on the test set
 y_pred = model.predict(X_test)
+
+# Confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Plot confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, cmap='Oranges', fmt='g')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix for Random Forest KBinsDiscretizer Model')
+plt.show()
 
 # Calculate evaluation metrics
 accuracy = accuracy_score(y_test, y_pred)
